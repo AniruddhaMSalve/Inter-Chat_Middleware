@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.inter_chat.Inter_Chat_Backend.dao.ForumDAO;
 import com.inter_chat.Inter_Chat_Backend.model.Forum;
+import com.inter_chat.Inter_Chat_Backend.model.Forum;
 
 @RestController
 public class ForumRESTController {
@@ -71,4 +72,26 @@ public class ForumRESTController {
 		else
 			return new ResponseEntity<String>("Forum Not Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+		// working
+		@GetMapping("/approveForum/{forumId}")
+		public ResponseEntity<String> approveForum(@PathVariable("forumId") int forumId) {
+			Forum forum = forumDAO.getForum(forumId);
+
+			if (forumDAO.approveForum(forum))
+				return new ResponseEntity<String>("Forum Approved", HttpStatus.OK);
+			else
+				return new ResponseEntity<String>("Forum Not Approved", HttpStatus.OK);
+		}
+
+		// working
+		@GetMapping("/rejectForum/{forumId}")
+		public ResponseEntity<String> rejectForum(@PathVariable("forumId") int forumId) {
+			Forum forum = forumDAO.getForum(forumId);
+
+			if (forumDAO.rejectForum(forum))
+				return new ResponseEntity<String>("Forum rejected", HttpStatus.OK);
+			else
+				return new ResponseEntity<String>("Forum not rejected", HttpStatus.OK);
+		}
 }

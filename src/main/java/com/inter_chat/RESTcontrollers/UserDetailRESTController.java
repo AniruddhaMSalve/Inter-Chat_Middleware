@@ -45,15 +45,15 @@ public class UserDetailRESTController {
 	}
 
 	// working
-	@PutMapping("/updateUserDetail/{username}")
-	public ResponseEntity<String> updateUserDetail(@PathVariable("username") String username,
+	@PutMapping("/updateUserDetail/{loginName}")
+	public ResponseEntity<String> updateUserDetail(@PathVariable("loginName") String loginName,
 			@RequestBody UserDetail userDetail) {
-		UserDetail userDetail1 = userDetailDAO.getUserDetail(username);
+		UserDetail userDetail1 = userDetailDAO.getUserDetail(loginName);
 		userDetail1.setAddress(userDetail.getAddress());
 		userDetail1.setEmailId(userDetail.getEmailId());
 		userDetail1.setMobileNo(userDetail.getMobileNo());
 		userDetail1.setRole(userDetail.getRole());
-		userDetail1.setLoginName(userDetail.getLoginName());
+		userDetail1.setLoginName(userDetail.getUsername());
 		userDetail1.setPassword(userDetail.getPassword());
 
 		if (userDetailDAO.updateUser(userDetail1))
@@ -63,9 +63,9 @@ public class UserDetailRESTController {
 	}
 
 	// working
-	@GetMapping("/deleteUserDetail/{username}")
-	public ResponseEntity<String> deleteUserDetail(@PathVariable("username") String username) {
-		UserDetail userDetail = userDetailDAO.getUserDetail(username);
+	@GetMapping("/deleteUserDetail/{loginName}")
+	public ResponseEntity<String> deleteUserDetail(@PathVariable("loginName") String loginName) {
+		UserDetail userDetail = userDetailDAO.getUserDetail(loginName);
 
 		if (userDetailDAO.deleteUser(userDetail))
 			return new ResponseEntity("User Detail Deleted", HttpStatus.OK);
@@ -73,9 +73,10 @@ public class UserDetailRESTController {
 			return new ResponseEntity("User Detail Not Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	// working
 	@PostMapping("/checkUserDetail")
-	public ResponseEntity<UserDetail> checkUser(@RequestBody UserDetail userDetail, HttpSession session) {
-		UserDetail userDetail1 = userDetailDAO.checkUserValidation(userDetail.getUsername(), userDetail.getPassword());
+	public ResponseEntity<UserDetail> checkUserDetail(@RequestBody UserDetail userDetail, HttpSession session) {
+		UserDetail userDetail1 = userDetailDAO.checkUserValidation(userDetail.getLoginName(), userDetail.getPassword());
 		if (userDetail1 != null) {
 			session.setAttribute("userDetail", userDetail1);
 			return new ResponseEntity<UserDetail>(userDetail1, HttpStatus.OK);
