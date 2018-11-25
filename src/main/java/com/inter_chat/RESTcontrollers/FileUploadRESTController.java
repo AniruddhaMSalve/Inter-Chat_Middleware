@@ -18,47 +18,36 @@ import com.inter_chat.Inter_Chat_Backend.model.ProfilePicture;
 import com.inter_chat.Inter_Chat_Backend.model.UserDetail;
 
 @RestController
-public class FileUploadRESTController 
-{
+public class FileUploadRESTController {
 	@Autowired
 	ProfilePictureDAO profilePictureDAO;
-	
-	@RequestMapping(value="/doUpload",method=RequestMethod.POST)
-	public ResponseEntity<?> uploadProfilePicture(@RequestParam(value="file") CommonsMultipartFile fileUpload, HttpSession session)
-	{
-		UserDetail userDetail=(UserDetail)session.getAttribute("userDetail");
-		System.out.println("File Byte Length :"+fileUpload.getBytes().length);
-		if(userDetail==null)
-		{
-			return new ResponseEntity<String>("Unauthorized User",HttpStatus.NOT_FOUND);
-		}
-		else
-		{
-			ProfilePicture profilePicture=new ProfilePicture();
+
+	@RequestMapping(value = "/doUpload", method = RequestMethod.POST)
+	public ResponseEntity<?> uploadProfilePicture(@RequestParam(value = "file") CommonsMultipartFile fileUpload,
+			HttpSession session) {
+		UserDetail userDetail = (UserDetail) session.getAttribute("userDetail");
+		System.out.println("File Byte Length :" + fileUpload.getBytes().length);
+		if (userDetail == null) {
+			return new ResponseEntity<String>("Unauthorized User", HttpStatus.NOT_FOUND);
+		} else {
+			ProfilePicture profilePicture = new ProfilePicture();
 			profilePicture.setLoginName(userDetail.getLoginName());
 			profilePicture.setImage(fileUpload.getBytes());
 			profilePictureDAO.save(profilePicture);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 	}
-	
-	@RequestMapping(value="/getImage/{loginName}",method=RequestMethod.GET)
-	public @ResponseBody byte[] getProfilePicture(@PathVariable("loginName")String loginName,HttpSession session)
-	{
-		UserDetail userDetail=(UserDetail)session.getAttribute("userDetail");
-		if(userDetail==null)
-		{
+
+	@RequestMapping(value = "/getImage/{loginName}", method = RequestMethod.GET)
+	public @ResponseBody byte[] getProfilePicture(@PathVariable("loginName") String loginName, HttpSession session) {
+		UserDetail userDetail = (UserDetail) session.getAttribute("userDetail");
+		if (userDetail == null) {
 			return null;
-		}
-		else
-		{
-			ProfilePicture profilePicture=profilePictureDAO.getProfilePicture(loginName);
-			if(profilePicture!=null)
-			{
+		} else {
+			ProfilePicture profilePicture = profilePictureDAO.getProfilePicture(loginName);
+			if (profilePicture != null) {
 				return profilePicture.getImage();
-			}
-			else
-			{
+			} else {
 				return null;
 			}
 		}

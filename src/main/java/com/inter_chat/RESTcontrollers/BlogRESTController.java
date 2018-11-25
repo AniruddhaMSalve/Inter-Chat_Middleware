@@ -51,11 +51,7 @@ public class BlogRESTController {
 		blog1.setCreateDate(new Date());
 		blog1.setBlogName(blog.getBlogName());
 		blog1.setBlogDesc(blog.getBlogDesc());
-		blog1.setLoginName(blog.getLoginName());
-		blog1.setStatus(blog.getStatus());
-		blog1.setLikes(blog.getLikes());
-		blog1.setDislikes(blog.getDislikes());
-
+		
 		if (blogDAO.updateBlog(blog1))
 			return new ResponseEntity<String>("Blog Updated", HttpStatus.OK);
 		else
@@ -115,5 +111,12 @@ public class BlogRESTController {
 			return new ResponseEntity<String>("Blog Deleted", HttpStatus.OK);
 		else
 			return new ResponseEntity<String>("Blog Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// Working
+	@GetMapping("getBlog/{blogId}")
+	public ResponseEntity<Blog> getABlog(@PathVariable("blogId") int blogId) {
+		Blog blog = (Blog) blogDAO.getBlog(blogId);
+		return new ResponseEntity<Blog>(blog, HttpStatus.OK);
 	}
 }

@@ -35,6 +35,17 @@ public class UserDetailRESTController {
 			return new ResponseEntity(listUserDetail, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@GetMapping("/getUserDetail/{loginName}")
+	public ResponseEntity<List<UserDetail>> getUserDetail(@PathVariable("loginName") String loginName) {
+
+		UserDetail userDetail = userDetail = userDetailDAO.getUserDetail(loginName);
+
+		if (userDetail != null)
+			return new ResponseEntity(userDetail, HttpStatus.OK);
+		else
+			return new ResponseEntity(userDetail, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	// working
 	@PostMapping("/addUserDetail")
 	public ResponseEntity<String> addUserDetail(@RequestBody UserDetail userDetail) {
@@ -44,22 +55,24 @@ public class UserDetailRESTController {
 			return new ResponseEntity("User Detail Not Added", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	// working
-	@PutMapping("/updateUserDetail/{loginName}")
+	// Working
+	@PutMapping(value = "/updateUserDetail/{loginName}")
 	public ResponseEntity<String> updateUserDetail(@PathVariable("loginName") String loginName,
 			@RequestBody UserDetail userDetail) {
-		UserDetail userDetail1 = userDetailDAO.getUserDetail(loginName);
-		userDetail1.setAddress(userDetail.getAddress());
-		userDetail1.setEmailId(userDetail.getEmailId());
-		userDetail1.setMobileNo(userDetail.getMobileNo());
-		userDetail1.setRole(userDetail.getRole());
-		userDetail1.setLoginName(userDetail.getUsername());
-		userDetail1.setPassword(userDetail.getPassword());
+		System.out.println("In updating user " + loginName);
+		UserDetail mUser = userDetailDAO.getUserDetail(loginName);
+		if (mUser == null) {
+			System.out.println("No user found with loginName " + loginName);
+			return new ResponseEntity<String>("No user found", HttpStatus.NOT_FOUND);
+		}
 
-		if (userDetailDAO.updateUser(userDetail1))
-			return new ResponseEntity("User Detail Updated", HttpStatus.OK);
-		else
-			return new ResponseEntity("User Detail Not Updated", HttpStatus.INTERNAL_SERVER_ERROR);
+		mUser.setUsername(userDetail.getUsername());
+		mUser.setEmailId(userDetail.getEmailId());
+		mUser.setMobileNo(userDetail.getMobileNo());
+		mUser.setPassword(userDetail.getPassword());
+		mUser.setAddress(userDetail.getAddress());
+		userDetailDAO.updateUser(mUser);
+		return new ResponseEntity<String>("User updated successfully", HttpStatus.OK);
 	}
 
 	// working

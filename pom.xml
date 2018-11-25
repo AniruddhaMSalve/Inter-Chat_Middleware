@@ -33,13 +33,12 @@
     </dependency>
     <!-- JUnit Dependency-->
     
-  	  <!-- Servlet Dependency-->
+  	  	<!-- Servlet Dependency-->
 		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>3.0-alpha-1</version>
-			<scope>provided</scope>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 		<!-- Servlet Dependency-->
 		
@@ -94,10 +93,58 @@
 		</dependency>
 		<!-- JACKSON Dependencies -->
 		
+		<!-- SPRING WEB SOCKET -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+		<!-- SPRING WEB SOCKET -->
+		
+		<!-- SPRING MESSAGING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+		<!-- SPRING MESSAGING -->
+
+		<!-- WEB SOCKET API -->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- WEB SOCKET API -->
+		
+		<!-- SOCK JS -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>sockjs</artifactId>
+			<version>0.3.16</version>
+		</dependency>
+		<!-- SOCK JS -->
+
+		<!-- STOMP SOCKET -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>stomp-websocket</artifactId>
+			<version>2.3.4</version>
+		</dependency>
+		<!-- STOMP SOCKET -->
+
+		<!-- ANGULAR JS -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular</artifactId>
+			<version>1.3.8</version>
+		</dependency>
+		<!-- ANGULAR JS -->
+		
 		<!--Back-end dependency -->
 		<dependency>
 			<groupId>com.inter-chat</groupId>
-  			<artifactId>Inter-Chat_Backend</artifactId>
+ 			<artifactId>Inter-Chat_Backend</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!--Back-end dependency -->

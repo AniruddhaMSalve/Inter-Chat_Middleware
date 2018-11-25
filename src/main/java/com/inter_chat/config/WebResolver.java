@@ -18,11 +18,10 @@ public class WebResolver {
 		iResolver.setSuffix(".jsp");
 		return iResolver;
 	}
-	
-	@Bean(name="multipartResolver")
-	public CommonsMultipartResolver getMultipartReslover()
-	{
-		CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver();
+
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver getMultipartReslover() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setMaxUploadSize(10000000);
 		return multipartResolver;
 	}

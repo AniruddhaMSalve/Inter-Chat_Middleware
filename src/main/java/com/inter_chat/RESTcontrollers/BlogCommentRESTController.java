@@ -39,9 +39,9 @@ public class BlogCommentRESTController {
 		blogComment.setCommentDate(new Date());
 
 		if (blogCommentDAO.addBlogComment(blogComment))
-			return new ResponseEntity("Comment Added to Blog", HttpStatus.OK);
+			return new ResponseEntity<String>("Comment Added to Blog", HttpStatus.OK);
 		else
-			return new ResponseEntity("Comment Not Added to Blog", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Comment Not Added to Blog", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	// working
