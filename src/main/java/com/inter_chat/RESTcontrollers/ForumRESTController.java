@@ -20,6 +20,7 @@ import com.inter_chat.Inter_Chat_Backend.dao.ForumDAO;
 import com.inter_chat.Inter_Chat_Backend.model.Forum;
 import com.inter_chat.Inter_Chat_Backend.model.Forum;
 import com.inter_chat.Inter_Chat_Backend.model.Forum;
+import com.inter_chat.Inter_Chat_Backend.model.Forum;
 
 @RestController
 public class ForumRESTController {
@@ -35,6 +36,16 @@ public class ForumRESTController {
 		else
 			return new ResponseEntity<List<Forum>>(listForum, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	// working
+			@GetMapping("/showMyForum/{loginName}")
+			public ResponseEntity<List<Forum>> showMyForum(@PathVariable("loginName")String loginName) {
+				List<Forum> listMyForum = forumDAO.listUserForum(loginName);
+				if (listMyForum.size() > 0)
+					return new ResponseEntity<List<Forum>>(listMyForum, HttpStatus.OK);
+				else
+					return new ResponseEntity<List<Forum>>(listMyForum, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 
 	// working
 	@PostMapping("/addForum")

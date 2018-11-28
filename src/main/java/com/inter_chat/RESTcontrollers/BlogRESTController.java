@@ -32,6 +32,16 @@ public class BlogRESTController {
 		else
 			return new ResponseEntity<List<Blog>>(listBlog, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	// working
+		@GetMapping("/showMyBlog/{loginName}")
+		public ResponseEntity<List<Blog>> showMyBlog(@PathVariable("loginName")String loginName) {
+			List<Blog> listMyBlog = blogDAO.listUserBlog(loginName);
+			if (listMyBlog.size() > 0)
+				return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.OK);
+			else
+				return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 	// working
 	@PostMapping("/addBlog")
