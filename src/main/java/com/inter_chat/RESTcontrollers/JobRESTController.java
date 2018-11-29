@@ -23,7 +23,7 @@ public class JobRESTController {
 	@Autowired
 	JobDAO jobDAO;
 
-	//Working
+	// Working
 	@PostMapping(value = "/addJob")
 	public ResponseEntity<String> addJob(@RequestBody Job job) {
 		if (jobDAO.addJob(job)) {
@@ -33,7 +33,7 @@ public class JobRESTController {
 		}
 	}
 
-	//Working
+	// Working
 	@GetMapping(value = "/showAllJob")
 	public ResponseEntity<List<Job>> listJob() {
 		List<Job> listJobs = jobDAO.listAllJobs();
@@ -44,7 +44,7 @@ public class JobRESTController {
 		}
 	}
 
-	//Working
+	// Working
 	@PutMapping(value = "/updateJob/{jobId}")
 	public ResponseEntity<String> updateJob(@PathVariable("jobId") int jobId, @RequestBody Job job) {
 		System.out.println("Updating Job " + jobId);
@@ -65,17 +65,17 @@ public class JobRESTController {
 	}
 
 	// working
-		@GetMapping("/deleteJob/{jobId}")
-		public ResponseEntity<String> deleteJob(@PathVariable("jobId") int jobId) {
-			Job job = jobDAO.getJob(jobId);
+	@GetMapping("/deleteJob/{jobId}")
+	public ResponseEntity<String> deleteJob(@PathVariable("jobId") int jobId) {
+		Job job = jobDAO.getJob(jobId);
 
-			if (jobDAO.deleteJob(job))
-				return new ResponseEntity<String>("Job Deleted", HttpStatus.OK);
-			else
-				return new ResponseEntity<String>("Job Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	
-	//Working
+		if (jobDAO.deleteJob(job))
+			return new ResponseEntity<String>("Job Deleted", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Job Deleted", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// Working
 	@GetMapping(value = "/getJob/{jobId}")
 	public ResponseEntity<Job> getJob(@PathVariable("jobId") int jobId) {
 		System.out.println("Get Job " + jobId);
@@ -88,7 +88,7 @@ public class JobRESTController {
 		}
 	}
 
-	//Working
+	// Working
 	@PostMapping(value = "/applyJob")
 	public ResponseEntity<String> addJob(@RequestBody ApplyJob applyJob) {
 		applyJob.setAppliedDate(new Date());
@@ -99,9 +99,9 @@ public class JobRESTController {
 		}
 	}
 
-	//Working
+	// Working
 	@GetMapping(value = "/listAppliedJobs/{loginName}")
-	public ResponseEntity<List<ApplyJob>> listAppliedJob(@PathVariable("loginName")String loginName) {
+	public ResponseEntity<List<ApplyJob>> listAppliedJob(@PathVariable("loginName") String loginName) {
 		List<ApplyJob> listAppliedJobs = jobDAO.getAllAppliedJobDetails(loginName);
 		if (listAppliedJobs.size() != 0) {
 			return new ResponseEntity<List<ApplyJob>>(listAppliedJobs, HttpStatus.OK);

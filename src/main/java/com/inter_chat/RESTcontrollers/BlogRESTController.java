@@ -32,16 +32,16 @@ public class BlogRESTController {
 		else
 			return new ResponseEntity<List<Blog>>(listBlog, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	// working
-		@GetMapping("/showMyBlog/{loginName}")
-		public ResponseEntity<List<Blog>> showMyBlog(@PathVariable("loginName")String loginName) {
-			List<Blog> listMyBlog = blogDAO.listUserBlog(loginName);
-			if (listMyBlog.size() > 0)
-				return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.OK);
-			else
-				return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	@GetMapping("/showMyBlog/{loginName}")
+	public ResponseEntity<List<Blog>> showMyBlog(@PathVariable("loginName") String loginName) {
+		List<Blog> listMyBlog = blogDAO.listUserBlog(loginName);
+		if (listMyBlog.size() > 0)
+			return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.OK);
+		else
+			return new ResponseEntity<List<Blog>>(listMyBlog, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	// working
 	@PostMapping("/addBlog")
@@ -61,7 +61,7 @@ public class BlogRESTController {
 		blog1.setCreateDate(new Date());
 		blog1.setBlogName(blog.getBlogName());
 		blog1.setBlogDesc(blog.getBlogDesc());
-		
+
 		if (blogDAO.updateBlog(blog1))
 			return new ResponseEntity<String>("Blog Updated", HttpStatus.OK);
 		else

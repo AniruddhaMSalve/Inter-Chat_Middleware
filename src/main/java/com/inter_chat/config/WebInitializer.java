@@ -12,6 +12,7 @@ import com.inter_chat.Inter_Chat_Backend.config.DBConfig;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer // WebInitializer is similar to
 																							// web.xml
+
 {
 	@Override
 	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
